@@ -75,6 +75,24 @@ router.post("/sentence", function (req, res) {
   });
 });
 
+// DELETE /word/:word - deletes word from counter
+router.delete("/word/:word", function (req, res) {
+  const word = req.params.word;
+
+  if (!word) {
+    return res.status(400).send({ error: "Missing word parameter" });
+  }
+
+  if (!wordCounter[word]) {
+    return res
+      .status(404)
+      .send({ error: `Word '${word}' not found in counter` });
+  }
+
+  delete wordCounter[word];
+  res.status(200).send({ message: `Word '${word}' successfully deleted` });
+});
+
 module.exports = router;
 
 // GET /word - returns count for word from query parameter
