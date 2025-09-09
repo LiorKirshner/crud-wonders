@@ -22,9 +22,20 @@ const addWonder = function () {
     fetch();
   });
 };
+const updateVisited = function (wonder) {
+  $.ajax({
+    url: `wonder/${wonder}`,
+    method: "PUT",
+    success: function (response) {
+      console.log("PUT complete");
+      fetch();
+    },
+  });
+};
 
 $("#wonders").on("click", ".visit", function () {
   let wonder = $(this).closest(".wonder").find(".name").text();
+  updateVisited(wonder.split("-")[0].trim());
   //PUT this to the server: update the wonder's `visited` status to `true`
 });
 
