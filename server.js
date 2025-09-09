@@ -6,6 +6,12 @@ const {
   requestCounterMiddleware,
   homeRoute,
   aboutRoute,
+  validateId,
+  checkResourceExists,
+  errorHandler,
+  getAllUsers,
+  getUserById,
+  createUser,
 } = require("./server/middleware");
 const app = express();
 const wordCounter = require("./server/routes/wordCounter");
@@ -30,6 +36,14 @@ app.get("/about", aboutRoute);
 app.get("/sanity", function (req, res) {
   res.send(`server is up and running - Request #${req.requestCount}`);
 });
+
+// User routes with middleware
+app.get("/users", getAllUsers);
+app.get("/users/:id", validateId, checkResourceExists, getUserById);
+app.post("/users", createUser);
+
+// Error handling middleware (must be last)
+app.use(errorHandler);
 
 const port = 1337; //because why not
 app.listen(port, function () {
