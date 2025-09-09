@@ -11,6 +11,16 @@ router.get("/word/:word", function (req, res) {
   res.send({ count });
 });
 
+// GET /word - returns count for word from query parameter
+router.get("/word", function (req, res) {
+  const word = req.query.word;
+  if (!word) {
+    return res.status(400).send({ error: "Missing word parameter" });
+  }
+  const count = wordCounter[word] || 0;
+  res.send({ count });
+});
+
 // POST /word - adds word to counter and returns response
 router.post("/word", function (req, res) {
   const word = req.body.word || req.query.word;
