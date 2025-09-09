@@ -4,6 +4,8 @@ const api = require("./server/routes/api");
 const {
   loggingMiddleware,
   requestCounterMiddleware,
+  homeRoute,
+  aboutRoute,
 } = require("./server/middleware");
 const app = express();
 const wordCounter = require("./server/routes/wordCounter");
@@ -18,6 +20,13 @@ app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use("/", api);
 app.use("/word", wordCounter);
+
+// GET / - Returns welcome message and current request count
+app.get("/", homeRoute);
+
+// GET /about - Returns about message and current request count
+app.get("/about", aboutRoute);
+
 app.get("/sanity", function (req, res) {
   res.send(`server is up and running - Request #${req.requestCount}`);
 });

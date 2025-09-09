@@ -13,7 +13,18 @@ const requestCounterMiddleware = function (req, res, next) {
   next();
 };
 
+// Route handlers
+const homeRoute = function (req, res) {
+  res.send(`Welcome to CRUD Wonders! This is request #${req.requestCount}`);
+};
+
+const aboutRoute = function (req, res) {
+  res.send(`About CRUD Wonders: A simple Express app for learning CRUD operations. This is request #${req.requestCount}`);
+};
+
 module.exports = {
   loggingMiddleware,
   requestCounterMiddleware,
+  homeRoute,
+  aboutRoute,
 };
