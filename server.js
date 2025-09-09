@@ -2,13 +2,14 @@ const express = require("express");
 const path = require("path");
 const api = require("./server/routes/api");
 const app = express();
+const wordCounter = require("./server/routes/wordCounter");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.static(path.join(__dirname, "node_modules")));
 app.use("/", api);
-
+app.use("/word", wordCounter);
 app.get("/sanity", function (req, res) {
   res.send("server is up and running");
 });

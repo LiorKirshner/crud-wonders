@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const wordCounterRouter = require("./wordCounter");
 
 const wonders = [
   { name: "Mount Everest", location: "Nepal", visited: false },
@@ -43,5 +44,7 @@ router.delete("/wonder/:name", function (req, res) {
   wonders.splice(wondersIndex, 1);
   res.end();
 });
+
+router.use(wordCounterRouter);
 
 module.exports = router;
